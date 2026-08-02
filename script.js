@@ -6,6 +6,8 @@ const slots = [1, 2].map((n) => ({
     img: document.getElementById(`img-${n}`),
     placeholder: document.getElementById(`placeholder-${n}`),
     desc: document.getElementById(`desc-${n}`),
+    counter: document.getElementById(`counter-${n}`),
+    clearBtn: document.getElementById(`clear-${n}`),
 }));
 
 const feedback = document.getElementById("feedback-msg");
@@ -44,8 +46,49 @@ slots.forEach((slot) => {
             slot.img.src = e.target.result;
             slot.img.hidden = false;
             slot.placeholder.hidden = true;
+            updateAltText(slot);
         };
         reader.readAsDataURL(file);
+    });
+});
+
+// Mantiene el "alt" de la imagen sincronizado con la descripción escrita,
+// para que quien use un lector de pantalla reciba el mismo contexto.
+function updateAltText(slot) {
+    const text = slot.desc.value.trim();
+    slot.img.alt = text ? `Imagen ${slot.id}: ${text}` : `Vista previa de la imagen ${slot.id}`;
+}
+
+// Contador de caracteres en vivo para cada descripción (límite de 200).
+slots.forEach((slot) => {
+    const maxLength = Number(slot.desc.getAttribute("maxlength")) || 200;
+
+    const refreshCounter = () => {
+        const length = slot.desc.value.length;
+        slot.counter.textContent = `${length}/${maxLength}`;
+        slot.counter.classList.toggle("limit-close", length >= maxLength - 20);
+    };
+
+    slot.desc.addEventListener("input", () => {
+        refreshCounter();
+        updateAltText(slot);
+    });
+
+    refreshCounter();
+});
+
+// Botón "Limpiar": borra la imagen y la descripción de ese espacio en particular.
+slots.forEach((slot) => {
+    slot.clearBtn.addEventListener("click", () => {
+        slot.fileInput.value = "";
+        slot.img.src = "";
+        slot.img.hidden = true;
+        slot.img.alt = `Vista previa de la imagen ${slot.id}`;
+        slot.placeholder.hidden = false;
+        slot.desc.value = "";
+        slot.counter.textContent = `0/${slot.desc.getAttribute("maxlength") || 200}`;
+        slot.counter.classList.remove("limit-close");
+        showFeedback(`Espacio ${slot.id} limpiado.`, "success");
     });
 });
 
