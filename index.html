@@ -4,24 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galería de Imágenes</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Formulario para subir imágenes con descripción y previsualizarlas al instante.">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="gallery-container">
+        <h1>Galería de Imágenes</h1>
+        <p class="subtitle">Selecciona una imagen y escribe una descripción para cada espacio.</p>
+
         <div class="gallery">
-            <!-- Espacios para imágenes y descripciones -->
             <div class="image-item" id="image-1">
-                <img src="" alt="Imagen 1" class="image" id="img-1">
+                <label for="file-1" class="image-label">
+                    <img src="" alt="Vista previa de la imagen 1" class="image" id="img-1" hidden>
+                    <span class="image-placeholder" id="placeholder-1">Haz clic para subir una imagen</span>
+                </label>
                 <input type="file" id="file-1" class="file-input" accept="image/*">
-                <textarea id="desc-1" class="description" placeholder="Descripción de la imagen"></textarea>
+                <label for="desc-1" class="visually-hidden">Descripción de la imagen 1</label>
+                <textarea id="desc-1" class="description" placeholder="Descripción de la imagen" maxlength="200"></textarea>
             </div>
+
             <div class="image-item" id="image-2">
-                <img src="" alt="Imagen 2" class="image" id="img-2">
+                <label for="file-2" class="image-label">
+                    <img src="" alt="Vista previa de la imagen 2" class="image" id="img-2" hidden>
+                    <span class="image-placeholder" id="placeholder-2">Haz clic para subir una imagen</span>
+                </label>
                 <input type="file" id="file-2" class="file-input" accept="image/*">
-                <textarea id="desc-2" class="description" placeholder="Descripción de la imagen"></textarea>
+                <label for="desc-2" class="visually-hidden">Descripción de la imagen 2</label>
+                <textarea id="desc-2" class="description" placeholder="Descripción de la imagen" maxlength="200"></textarea>
             </div>
         </div>
-        <button class="update-btn" onclick="updateImages()">Actualizar Datos</button>
+
+        <button type="button" class="update-btn" id="update-btn">Actualizar Datos</button>
+        <p class="feedback-msg" id="feedback-msg" role="status" aria-live="polite"></p>
     </div>
 
     <script src="script.js"></script>
