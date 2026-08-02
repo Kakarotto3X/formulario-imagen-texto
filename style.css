@@ -104,6 +104,42 @@ body {
     box-sizing: border-box;
 }
 
+.item-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.char-counter {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.char-counter.limit-close {
+    color: #c62828;
+}
+
+.clear-btn {
+    background: none;
+    border: 1px solid #c9c9c9;
+    color: #555;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    border-color: #c62828;
+    color: #c62828;
+}
+
+.clear-btn:focus-visible {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+
 .update-btn {
     display: block;
     margin: 30px auto 12px;
